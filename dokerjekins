@@ -1,8 +1,11 @@
-#!/bin/bash
-
-sudo apt install openjdk-11-jdk le/jenkins.io.key | sudo apt-key add -
-sudo sh -c -y
-wget -q -O - https://pkg.jenkins.io/debian-stab'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+##!/bin/bash
+#Docker-Jenkins-Java-Maven Installation
+sudo apt install openjdk-11-jdk -y
+sudo apt install maven -y
+sudo apt install docker.io -y
+sudo usermod -aG docker ubuntu
+wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
 sudo apt update
 sudo apt install jenkins -y
 sudo systemctl start jenkins
@@ -12,3 +15,4 @@ echo "jenkins  ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/jenkins
 sudo sed -i "/^[^#]*PasswordAuthentication[[:space:]]no/c\PasswordAuthentication yes" /etc/ssh/sshd_config
 sudo service sshd restart
 sudo usermod -aG docker jenkins
+
